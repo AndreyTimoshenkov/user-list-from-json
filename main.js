@@ -1,35 +1,33 @@
-var header = document.querySelector("header");
-var section = document.querySelector("section");
-//var requestURL = "./data.json";
-var requestURL = "https://mdn.github.io/learning-area/javascript/oojs/json/superheroes.json";
-var request = new XMLHttpRequest();
+let DB = null;
 
-request.open("GET", requestURL);
-request.responseType = "json";
-request.send();
+let request = fetch('./users.json').then(response => response.json()).then((data) => {
+    DB = data;
+    populateHeader(DB);
+    showUsers(data);
+});
 
-request.onload = function () {
-    var superHeroes = request.response;
-    populateHeader(superHeroes);
-    showHeroes(superHeroes);
-    };
+// (async () => {
+//     let DB = await(await fetch('users.json')).json();
+//     console.log(DB);
+// })();
+
+
+let header = document.querySelector("header");
+let section = document.querySelector("section");
+
 function populateHeader(jsonObj) {
-    var header = document.querySelector("header");
-    var myH1 = document.createElement("h1");
-    myH1.textContent = jsonObj["squadName"];
+    let header = document.querySelector("header");
+    let myH1 = document.createElement("h1");
+    myH1.textContent = Object.keys(jsonObj);
     header.appendChild(myH1);
-
-    var myPara = document.createElement("p");
-    myPara.textContent =
-    "Hometown: " + jsonObj["homeTown"] + " // Formed: " + jsonObj["formed"];
-    header.appendChild(myPara);
     };
-function showHeroes(jsonObj) {
-    var section = document.querySelector("section");
-    var heroes = jsonObj["members"];
 
-    for (var i = 0; i < heroes.length; i++) {
-        var myArticle = document.createElement("article");
+function showUsers(jsonObj) {
+    let section = document.querySelector("section");
+    let users = Object.values(jsonObj);
+
+    for (let i = 0; i < users.length; i++) {
+        var row = document.createElement("row");
         var myH2 = document.createElement("h2");
         var myPara1 = document.createElement("p");
         var myPara2 = document.createElement("p");
@@ -57,4 +55,3 @@ function showHeroes(jsonObj) {
     section.appendChild(myArticle);
     }
 };
-      

@@ -1,4 +1,21 @@
 /* || general styles */
+@font-face {
+  font-weight: 400; /* Соответствует значению normal */
+  font-family: Roboto;
+  src: url("assets/Roboto/Roboto-Regular.ttf");
+}
+
+@font-face {
+  font-weight: 700; /* Соответствует значению bold */
+  font-family: Roboto;
+  src: url("assets/Roboto/Roboto-Bold.ttf");
+}
+
+@font-face {
+  font-weight: 300;
+  font-family: Roboto;
+  src: url("assets/Roboto/Roboto-Light.ttf");
+}
 
 html {
   font-family: 'helvetica neue', helvetica, arial, sans-serif;
@@ -10,7 +27,7 @@ body {
 }
 
 h1, h2 {
-  font-family: 'Faster One', cursive;
+  font-family: 'Roboto';
 }
 
 /* header styles */
