@@ -18,7 +18,7 @@
 }
 
 html {
-  font-family: "helvetica neue", helvetica, arial, sans-serif;
+  font-family: "Roboto";
 }
 
 body {
@@ -39,10 +39,13 @@ h1 {
 }
 
 caption {
-  /* border: 1px solid #000; */
   font-size: 4rem;
   text-align: center;
   vertical-align: baseline;
+}
+
+thead tr {
+  border: 1px solid #000;
 }
 
 header p {
