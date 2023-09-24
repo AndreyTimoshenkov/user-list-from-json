@@ -1,76 +1,20 @@
-/* || general styles */
-@font-face {
-  font-weight: 400; /* Соответствует значению normal */
-  font-family: Roboto;
-  src: url("assets/Roboto/Roboto-Regular.ttf");
-}
-
-@font-face {
-  font-weight: 700; /* Соответствует значению bold */
-  font-family: Roboto;
-  src: url("assets/Roboto/Roboto-Bold.ttf");
-}
-
-@font-face {
-  font-weight: 300;
-  font-family: Roboto;
-  src: url("assets/Roboto/Roboto-Light.ttf");
-}
-
-html {
-  font-family: "Roboto";
-}
-
 body {
   width: 800px;
   margin: 0 auto;
-}
-
-h1,
-h2 {
-  font-family: "Roboto";
-}
-
-/* header styles */
-
-h1 {
-  font-size: 4rem;
-  text-align: center;
 }
 
 caption {
   font-size: 4rem;
   text-align: center;
   vertical-align: baseline;
-}
-
-thead tr {
-  border: 1px solid #000;
-}
-
-header p {
-  font-size: 1.3rem;
-  font-weight: bold;
   text-align: center;
 }
 
-/* section styles */
-
-section article {
-  width: 33%;
-  float: left;
+table {
+  caption-side: top;
 }
 
-section p {
-  margin: 5px 0;
-}
-
-section ul {
-  margin-top: 0;
-}
-
-h2 {
-  font-size: 2.5rem;
-  letter-spacing: -5px;
-  margin-bottom: 10px;
+td,
+th {
+  text-align: center;
 }
