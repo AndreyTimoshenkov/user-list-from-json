@@ -36,9 +36,14 @@ function showUsers(jsonObj) {
   let values = Object.values(jsonObj);
   for (let value of values) {
     for (let user of value) {
+      let tr = document.createElement("tr");
+      let tbody = document.querySelector("tbody");
       for (key in user) {
-        console.log(user[key]);
+        let td = document.createElement("td");
+        td.textContent = user[key];
+        tr.appendChild(td);
       }
+      tbody.appendChild(tr);
     }
   }
 }
