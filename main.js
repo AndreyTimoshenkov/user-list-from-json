@@ -1,9 +1,19 @@
 let request = fetch("./users.json")
   .then((response) => response.json())
   .then((data) => {
+    let values = Object.values(data)[0];
+    for (value of values) {
+      localStorage.setItem(value.id, JSON.stringify(value));
+    }
+
     populateCaption(data);
     populateHeaders(data);
-    showUsers(data);
+
+    if (localStorage.length === 0) {
+      showUsers(data);
+    } else {
+      renderUsers();
+    }
   });
 
 function capitalizeFLetter(str) {
@@ -46,4 +56,22 @@ function showUsers(jsonObj) {
       tbody.appendChild(tr);
     }
   }
+}
+
+function renderUsers() {
+  for (let i = 1; i <= localStorage.length; i++) {
+    let user = JSON.parse(localStorage.getItem(i));
+    renderUser(user);
+  }
+}
+
+function renderUser(user) {
+  let tr = document.createElement("tr");
+  let tbody = document.querySelector("tbody");
+  for (key in user) {
+    let td = document.createElement("td");
+    td.textContent = user[key];
+    tr.appendChild(td);
+  }
+  tbody.appendChild(tr);
 }
