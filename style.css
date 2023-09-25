@@ -17,4 +17,10 @@ table {
 td,
 th {
   text-align: center;
+  border: none;
+}
+
+button {
+  border: none;
+  background-color: transparent;
 }

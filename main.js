@@ -8,12 +8,7 @@ let request = fetch("./users.json")
 
     populateCaption(data);
     populateHeaders(data);
-
-    if (localStorage.length === 0) {
-      showUsers(data);
-    } else {
-      renderUsers();
-    }
+    renderUsers();
   });
 
 function capitalizeFLetter(str) {
@@ -42,22 +37,6 @@ function populateHeaders(jsonObj) {
   }
 }
 
-function showUsers(jsonObj) {
-  let values = Object.values(jsonObj);
-  for (let value of values) {
-    for (let user of value) {
-      let tr = document.createElement("tr");
-      let tbody = document.querySelector("tbody");
-      for (key in user) {
-        let td = document.createElement("td");
-        td.textContent = user[key];
-        tr.appendChild(td);
-      }
-      tbody.appendChild(tr);
-    }
-  }
-}
-
 function renderUsers() {
   for (let i = 1; i <= localStorage.length; i++) {
     let user = JSON.parse(localStorage.getItem(i));
@@ -73,5 +52,19 @@ function renderUser(user) {
     td.textContent = user[key];
     tr.appendChild(td);
   }
+  createDelButton(tr, user);
   tbody.appendChild(tr);
+}
+
+function createDelButton(tr, user) {
+  let td = document.createElement("td");
+  let button = document.createElement("button");
+  button.textContent = "🗑";
+  let id = user["id"];
+  button.setAttribute("id", id);
+  td.appendChild(button);
+  tr.appendChild(button);
+  button.addEventListener("click", () => {
+    localStorage.removeItem(id);
+  });
 }
