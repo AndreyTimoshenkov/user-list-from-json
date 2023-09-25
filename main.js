@@ -32,9 +32,15 @@ function populateHeaders(jsonObj) {
   for (key in headers) {
     let th = document.createElement("th");
     let capitalisedText = _.capitalize(headers[key]);
-    th.textContent = capitalisedText + "⭥";
+    th.textContent = capitalisedText + "⇅";
     th.setAttribute("role", "button");
-    th.addEventListener("click", () => console.log("BOOM!"));
+    let sortRule = {
+      header: "id",
+      rule: "ascending",
+    };
+    th.addEventListener("click", () => {
+      console.log("BOOM!");
+    });
     tr.appendChild(th);
   }
 }
@@ -80,4 +86,6 @@ function createDelButton(tr, user) {
   });
 }
 
-function sortUsers() {}
+function sortUsers(sortRule) {
+  console.log(users);
+}
