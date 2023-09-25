@@ -1,3 +1,5 @@
+const users = {};
+
 let request = fetch("./users.json")
   .then((response) => response.json())
   .then((data) => {
@@ -10,6 +12,12 @@ let request = fetch("./users.json")
     populateHeaders(data);
     renderUsers();
   });
+
+for (let [key, value] of Object.entries(localStorage)) {
+  users[key] = value;
+}
+
+console.log(users);
 
 function capitalizeFLetter(str) {
   return str[0].toUpperCase() + str.slice(1);
@@ -38,13 +46,24 @@ function populateHeaders(jsonObj) {
 }
 
 function renderUsers() {
-  for (let i = 1; i <= localStorage.length; i++) {
-    let user = JSON.parse(localStorage.getItem(i));
+  let tbody = document.querySelector("tbody");
+  if (tbody !== null) {
+    tbody.remove();
+  }
+  tbody = document.createElement("tbody");
+  let table = document.querySelector("table");
+  table.appendChild(tbody);
+
+  for (let id in localStorage) {
+    let user = JSON.parse(localStorage.getItem(id));
     renderUser(user);
   }
 }
 
 function renderUser(user) {
+  if (user === null) {
+    return;
+  }
   let tr = document.createElement("tr");
   let tbody = document.querySelector("tbody");
   for (key in user) {
@@ -66,5 +85,6 @@ function createDelButton(tr, user) {
   tr.appendChild(button);
   button.addEventListener("click", () => {
     localStorage.removeItem(id);
+    renderUsers();
   });
 }
