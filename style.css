@@ -24,3 +24,11 @@ button {
   border: none;
   background-color: transparent;
 }
+
+.button {
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: grey;
+}

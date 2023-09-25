@@ -4,8 +4,10 @@ let request = fetch("./users.json")
   .then((response) => response.json())
   .then((data) => {
     let values = Object.values(data)[0];
+
     for (value of values) {
-      localStorage.setItem(value.id, JSON.stringify(value));
+      let key = value.id;
+      users[key] = value;
     }
 
     populateCaption(data);
@@ -13,19 +15,9 @@ let request = fetch("./users.json")
     renderUsers();
   });
 
-for (let [key, value] of Object.entries(localStorage)) {
-  users[key] = value;
-}
-
-console.log(users);
-
-function capitalizeFLetter(str) {
-  return str[0].toUpperCase() + str.slice(1);
-}
-
 function populateCaption(jsonObj) {
   let caption = document.querySelector("caption");
-  let capitalisedText = capitalizeFLetter(String(Object.keys(jsonObj)));
+  let capitalisedText = _.capitalize(String(Object.keys(jsonObj)));
   caption.textContent = capitalisedText;
 }
 
@@ -39,8 +31,10 @@ function populateHeaders(jsonObj) {
 
   for (key in headers) {
     let th = document.createElement("th");
-    let capitalisedText = capitalizeFLetter(headers[key]);
-    th.textContent = capitalisedText;
+    let capitalisedText = _.capitalize(headers[key]);
+    th.textContent = capitalisedText + "⭥";
+    th.setAttribute("role", "button");
+    th.addEventListener("click", () => console.log("BOOM!"));
     tr.appendChild(th);
   }
 }
@@ -54,16 +48,13 @@ function renderUsers() {
   let table = document.querySelector("table");
   table.appendChild(tbody);
 
-  for (let id in localStorage) {
-    let user = JSON.parse(localStorage.getItem(id));
+  for (let id in users) {
+    let user = users[id];
     renderUser(user);
   }
 }
 
 function renderUser(user) {
-  if (user === null) {
-    return;
-  }
   let tr = document.createElement("tr");
   let tbody = document.querySelector("tbody");
   for (key in user) {
@@ -84,7 +75,9 @@ function createDelButton(tr, user) {
   td.appendChild(button);
   tr.appendChild(button);
   button.addEventListener("click", () => {
-    localStorage.removeItem(id);
+    delete users[id];
     renderUsers();
   });
 }
+
+function sortUsers() {}
