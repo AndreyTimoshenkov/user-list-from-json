@@ -2,7 +2,7 @@ The app takes a list of users from the locally stored JSON file and renders a ta
 
 To run:
 
-1. Clone the repository using git clone;
+1. Clone the repository using 'git clone';
 2. run 'npm install' (to install bootstrap for styling);
 3. run 'npx serve' to run the app locally;
 4. Enjoy sorting and deleting the users!
