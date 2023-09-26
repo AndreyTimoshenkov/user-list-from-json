@@ -1,4 +1,4 @@
-const users = {};
+let users = {};
 
 let request = fetch("./users.json")
   .then((response) => response.json())
@@ -12,7 +12,7 @@ let request = fetch("./users.json")
 
     populateCaption(data);
     populateHeaders(data);
-    renderUsers();
+    renderUsers(users);
   });
 
 function populateCaption(jsonObj) {
@@ -29,23 +29,32 @@ function populateHeaders(jsonObj) {
   let user = Object.values(jsonObj)[0][0];
   let headers = Object.keys(user);
 
+  let sortDirByColumn = {};
+
   for (key in headers) {
+    const header = headers[key];
+    sortDirByColumn[header] = "asc";
     let th = document.createElement("th");
-    let capitalisedText = _.capitalize(headers[key]);
+    let capitalisedText = _.capitalize(header);
     th.textContent = capitalisedText + "⇅";
     th.setAttribute("role", "button");
-    let sortRule = {
-      header: "id",
-      rule: "ascending",
-    };
+
     th.addEventListener("click", () => {
-      console.log("BOOM!");
+      const sortedUsers = sortUsers(users, header, sortDirByColumn[header]);
+      sortDirByColumn[header] =
+        sortDirByColumn[header] === "asc" ? "desc" : "asc";
+      renderUsers(sortedUsers);
     });
     tr.appendChild(th);
   }
 }
 
-function renderUsers() {
+function sortUsers(list, header, sortDir) {
+  let sortedlist = _.orderBy(list, header, sortDir);
+  return sortedlist;
+}
+
+function renderUsers(users) {
   let tbody = document.querySelector("tbody");
   if (tbody !== null) {
     tbody.remove();
@@ -82,10 +91,6 @@ function createDelButton(tr, user) {
   tr.appendChild(button);
   button.addEventListener("click", () => {
     delete users[id];
-    renderUsers();
+    renderUsers(users);
   });
-}
-
-function sortUsers(sortRule) {
-  console.log(users);
 }
